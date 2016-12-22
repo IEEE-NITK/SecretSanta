@@ -12,10 +12,11 @@ message['Subject'] = 'Secret Santa'
 
 msg_full = message.as_string()
 
+
 server = smtplib.SMTP('smtp.gmail.com:587')
 server.starttls()
-server.login('sendermail@gmail.com', 'sender_password')
-server.sendmail('sendermail@gmail.com',
-                ['recievermail1@gmail.com', 'recievermail2@gmail.com'],
+server.login('sbs.191197@gmail.com', 'salman@nitk2015')
+server.sendmail('sbs.191197@gmail.com',
+                ['salman.badshah@gmail.com'],
                 msg_full)
 server.quit()
