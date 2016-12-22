@@ -17,6 +17,7 @@ with open('Secret_Santa.csv') as csvfile:
     
     print hash1
 
+who = raw_input('Who are you?')
 whatName = raw_input('Whose name do you wish to know?\n->')
 
 #Mail written from here!
@@ -33,8 +34,8 @@ msg_full = message.as_string()
 
 server = smtplib.SMTP('smtp.gmail.com:587')
 server.starttls()
-server.login('sbs.191197@gmail.com', 'salman@nitk2015')
-server.sendmail('sbs.191197@gmail.com',
-                [ hash2[whatName] , 'salman.badshah@gmail.com'],
+server.login('sendermail@gmail.com', 'sender_password')
+server.sendmail('sendermail@gmail.com',
+                [ hash2[who] , 'salman.badshah@gmail.com'],
                 msg_full)
 server.quit()

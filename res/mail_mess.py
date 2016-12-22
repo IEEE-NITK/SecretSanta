@@ -15,8 +15,8 @@ msg_full = message.as_string()
 
 server = smtplib.SMTP('smtp.gmail.com:587')
 server.starttls()
-server.login('sbs.191197@gmail.com', 'salman@nitk2015')
-server.sendmail('sbs.191197@gmail.com',
+server.login('sender_mail@gmail.com', 'sender_password')
+server.sendmail('sender_mail@gmail.com',
                 ['salman.badshah@gmail.com'],
                 msg_full)
 server.quit()
