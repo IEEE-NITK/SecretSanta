@@ -4,6 +4,8 @@ from email.mime.text import MIMEText
 
 hash1 = {}
 hash2 = {}
+hash3 = {}
+nicknames = []
 
 with open('Secret_Santa.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
@@ -17,25 +19,35 @@ with open('Secret_Santa.csv') as csvfile:
     
     print hash1
 
-who = raw_input('Who are you?')
-whatName = raw_input('Whose name do you wish to know?\n->')
+with open('Santa_Choose.csv') as csvfile:
+    readCSV = csv.reader(csvfile, delimiter=',')
 
-#Mail written from here!
-title = 'Secret Santa'
-msg_content = 'Hi this is a message to tell you about your Secret Santa\n' + hash1[whatName]
-message = MIMEText(msg_content, 'html')
+    for row in readCSV:
+        nickname = row[1]
+        chosen_nickname = row[2]
+        hash3[nickname] = chosen_nickname 
+        nicknames.append(nickname)
 
-message['From'] = 'Sender Name <sender@server>'
-message['To'] = 'Receiver Name <receiver@server>'
-message['Cc'] = 'Receiver2 Name <receiver2@server>'
-message['Subject'] = 'Secret Santa'
+for nickname in nicknames:
+    who = nickname
+    whatName = hash3[nickname]
 
-msg_full = message.as_string()
+    #Mail written from here!
+    title = 'Secret Santa'
+    msg_content = 'Hi this is a message to tell you about your Secret Santa\n' + hash1[whatName]
+    message = MIMEText(msg_content, 'html')
 
-server = smtplib.SMTP('smtp.gmail.com:587')
-server.starttls()
-server.login('sendermail@gmail.com', 'sender_password')
-server.sendmail('sendermail@gmail.com',
-                [ hash2[who] , 'salman.badshah@gmail.com'],
-                msg_full)
-server.quit()
+    message['From'] = 'Sender Name <sender@server>'
+    message['To'] = 'Receiver Name <receiver@server>'
+    message['Cc'] = 'Receiver2 Name <receiver2@server>'
+    message['Subject'] = 'Secret Santa'
+
+    msg_full = message.as_string()
+
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+    server.login('secret.santa.ieeenitk@gmail.com', 'ieeenitk2016')
+    server.sendmail('secret.santa.ieeenitk@gmail.com',
+                    [ hash2[who] , 'salman.badshah@gmail.com'],
+                    msg_full)
+    server.quit()
