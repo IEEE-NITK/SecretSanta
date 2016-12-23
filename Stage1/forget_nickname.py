@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 hash_nickname = {}
 hash_email = {}
 names = []
+nicknames = []
 
 with open('Secret_Santa.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
@@ -18,10 +19,17 @@ with open('Secret_Santa.csv') as csvfile:
         hash_nickname[name] = nickname
         hash_email[name] = email 
         names.append(name)
+        nicknames.append(nickname)
 
     print hash_nickname
 
-#who = raw_input('What is your name?\n->')
+with open('Santa_Choose.csv', 'w') as csvfile:
+    writeCSV = csv.writer(csvfile)
+
+    writeCSV.writerow(['Nicknames', 'Chosen Nicknames'])
+
+    for nickname in nicknames:
+        writeCSV.writerow([nickname])
 
 for name in names:
     #Mail written from here!
@@ -33,7 +41,6 @@ for name in names:
     msg_content += 'Your nickname that you have chosen is: ' + hash_nickname[name]
     msg_content += '''
     \nLooking forward to an amazing year with you up ahead\n\n
-
     Best Regards,\n
     Secret Santa 2k16 Team.
     '''
